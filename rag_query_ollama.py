@@ -19,6 +19,8 @@ def generate_with_lm_studio(query, context):
         {"role": "system", "content": 'You are a helpful AI assistant named Bob capable of RAG (retrieval augmented generation). Use the provided context to accurately address the user\'s query. You may be provided with extra, unnecessary information. Only use relevant context when augmenting your answers.'},
         {"role": "user", "content": f"Context: {context}\nQuestion: {query}\nAnswer:"},
     ]
+
+    print("==> Query: " + query)
     
     client = openai.OpenAI(base_url=LM_STUDIO_SERVER_URL, api_key=API_KEY)
 
