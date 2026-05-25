@@ -3,7 +3,7 @@ import json
 import requests
 
 client = OpenAI(
-    base_url="http://210.61.209.139:45600/v1",   # your vLLM server
+    base_url="http://210.61.209.139:45276/v1",   # your vLLM server
     api_key="token-abc123",                # same token you started vLLM with
 )
 
