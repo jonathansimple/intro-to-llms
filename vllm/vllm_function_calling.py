@@ -77,7 +77,7 @@ if __name__ == '__main__':
     # Function calling flow demo
     # Case 1: function call is triggered
     # Case 2: no relevant tool is present so plain text response is received
-    for input_text in ["What is the weather in Taipei?", "Who is the president of the United States?"]:
+    for input_text in ["What is the weather in Taipei?", "Who is the president of the United States?", "what is your name?"]:
         run_conversation(input_text)
         print("-"*100)
 
