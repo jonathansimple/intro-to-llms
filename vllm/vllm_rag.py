@@ -7,7 +7,7 @@ import pickle
 
 # ---------- CONFIG ----------
 API_KEY = "fake-key"
-SERVER_URL = "http://210.61.209.139:45600/v1" # for ollama
+SERVER_URL = "http://210.61.209.139:45276/v1" # for ollama
 MODEL_NAME = "Qwen/Qwen3-30B-A3B" # the model identifier for the vLLM model you are using
 
 # Function to generate an answer using LM Studio's model
