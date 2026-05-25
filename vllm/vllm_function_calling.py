@@ -29,6 +29,18 @@ def get_weather(latitude, longitude):
     data = response.json()
     return data['current']['temperature_2m']
 
+def parse_llm(llm_text):
+    if r"```json" in llm_text:
+        llm_text = llm_text.split(r"```json")[1].split(r"```")[0]
+    elif r"```tool_code" in llm_text:
+        llm_text = llm_text.split(r"```tool_code")[1].split(r"```")[0]
+    elif r"<functioncall>" in llm_text:
+        llm_text = llm_text.split(r"<functioncall>")[1].split(r"</functioncall>")[0]
+    else:
+        llm_text = llm_text
+        
+    return llm_text
+
 def run_conversation(query):
     stream = client.chat.completions.create(
         model="Qwen/Qwen3-30B-A3B",  # replace with your served model name
@@ -36,7 +48,7 @@ def run_conversation(query):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": query},
         ],
-        temperature=0.2,
+        temperature=0.0,
         max_tokens=8192,
         stream=True,
     )
@@ -54,14 +66,12 @@ def run_conversation(query):
     # If function/tool is used, the LLM output will be a json we can parse
     try:
         # A more complicated project would use a function/tool map/list to guide control flow
-        data = json.loads(llm_answer)
+        data = json.loads(parse_llm(llm_answer))
         temperature = get_weather(data["arguments"]["latitude"], data["arguments"]["longitude"])
         print(f"The current temperature is {temperature} Celsius")
     except:
         # If the LLM responded in plain text, no additional processing is needed
         pass
-
-
 
 if __name__ == '__main__':
     # Function calling flow demo
